@@ -1,0 +1,14 @@
+[INFO  - 2016-10-16T13:13:52.540Z] GhostDriver - Main - running on port 41548
+[INFO  - 2016-10-16T13:13:53.455Z] Session [62e37e40-93a2-11e6-90e5-9dea21886551] - page.settings - {"XSSAuditingEnabled":false,"javascriptCanCloseWindows":true,"javascriptCanOpenWindows":true,"javascriptEnabled":true,"loadImages":true,"localToRemoteUrlAccessEnabled":false,"userAgent":"Mozilla/5.0 (Unknown; Linux x86_64) AppleWebKit/538.1 (KHTML, like Gecko) PhantomJS/2.1.1 Safari/538.1","webSecurityEnabled":true}
+[INFO  - 2016-10-16T13:13:53.456Z] Session [62e37e40-93a2-11e6-90e5-9dea21886551] - page.customHeaders:  - {}
+[INFO  - 2016-10-16T13:13:53.456Z] Session [62e37e40-93a2-11e6-90e5-9dea21886551] - Session.negotiatedCapabilities - {"browserName":"phantomjs","version":"2.1.1","driverName":"ghostdriver","driverVersion":"1.2.0","platform":"linux-unknown-64bit","javascriptEnabled":true,"takesScreenshot":true,"handlesAlerts":false,"databaseEnabled":false,"locationContextEnabled":false,"applicationCacheEnabled":false,"browserConnectionEnabled":false,"cssSelectorsEnabled":true,"webStorageEnabled":false,"rotatable":false,"acceptSslCerts":false,"nativeEvents":true,"proxy":{"proxyType":"direct"}}
+[INFO  - 2016-10-16T13:13:53.456Z] SessionManagerReqHand - _postNewSessionCommand - New Session Created: 62e37e40-93a2-11e6-90e5-9dea21886551
+[ERROR - 2016-10-16T13:13:53.924Z] Session [62e37e40-93a2-11e6-90e5-9dea21886551] - page.onError - msg: ReferenceError: Can't find variable: $
+
+  phantomjs://platform/console++.js:263 in error
+[ERROR - 2016-10-16T13:13:53.926Z] Session [62e37e40-93a2-11e6-90e5-9dea21886551] - page.onError - stack:
+  global code (http://www.postkhmer.com/%E1%9E%96%E1%9F%90%E1%9E%8F%E1%9F%8C%E1%9E%98%E1%9E%B6%E1%9E%93%E1%9E%87%E1%9E%B6%E1%9E%8F%E1%9E%B7:610)
+
+  phantomjs://platform/console++.js:263 in error
+[INFO  - 2016-10-16T13:18:53.098Z] SessionManagerReqHand - _cleanupWindowlessSessions - Asynchronous Sessions clean-up phase starting NOW
+[INFO  - 2016-10-16T13:18:53.102Z] SessionManagerReqHand - _cleanupWindowlessSessions - Deleted Session '62e37e40-93a2-11e6-90e5-9dea21886551', because windowless
