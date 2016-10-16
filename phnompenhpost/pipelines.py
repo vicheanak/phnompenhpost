@@ -43,7 +43,7 @@ class MySQLPipeline(object):
 
     def _insert_record(self, tx, item):
         now = time.strftime('%Y-%m-%d %H:%M:%S')
-        website_id = '3'
+        website_id = '7'
         tx.execute("SELECT 1 FROM NewsArticles WHERE url = %s", (item['url'], ))
         ret = tx.fetchone()
         if not ret:
