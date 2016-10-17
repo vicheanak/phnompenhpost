@@ -49,12 +49,13 @@ class TestSpider(CrawlSpider):
         if not description:
             print('Phnompenhpost => [' + now + '] No description')
         else:
-            item['description'] = description.xpath('strong[1]/text()').extract_first() + ' ' + description.xpath('text()').extract_first()
+            item['description'] = description.xpath('text()').extract_first()
 
         imageUrl = article.xpath("""
             a[1]/img[1]/@src
             """)
 
+        item['imageUrl'] = ''
         if not imageUrl:
             print('Phnompenhpost => [' + now + '] No imageUrl')
         else:
@@ -82,7 +83,7 @@ class TestSpider(CrawlSpider):
             if not description:
                 print('Phnompenhpost => [' + now + '] No description')
             else:
-                item['description'] = description.xpath('strong/text()').extract_first() + ' ' + description.xpath('text()').extract_first()
+                item['description'] = description.xpath('text()').extract_first()
 
             imageUrl = myart.xpath("""
                 div[@class="article-image"]/a[1]/img[1]/@src
