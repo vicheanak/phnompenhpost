@@ -107,11 +107,13 @@ class TestSpider(CrawlSpider):
             //img[@itemprop="contentURL"][1]/@src
             """)
         imageEle = ''
+        item['imageUrl'] = ''
         if not imageUrl:
             print('Phnompenhpost => [' + now + '] No imageUrl')
         else:
             imageEle = E.IMG(src=imageUrl.extract_first())
             imageEle = lxml.html.tostring(imageEle, encoding=unicode)
+            item['imageUrl'] = imageUrl.extract_first()
 
         root = lxml.html.fromstring(response.body)
         lxml.etree.strip_elements(root, lxml.etree.Comment, "script", "head")
