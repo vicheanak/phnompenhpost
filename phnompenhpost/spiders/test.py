@@ -10,6 +10,8 @@ from scrapy.selector import HtmlXPathSelector
 from scrapy.http import HtmlResponse
 # encoding=utf8
 import sys
+import lxml.etree
+import lxml.html
 
 reload(sys)
 sys.setdefaultencoding('utf8')
@@ -61,7 +63,9 @@ class TestSpider(CrawlSpider):
         else:
             item['imageUrl'] = imageUrl.extract_first()
 
-        yield item
+        request = scrapy.Request(item['url'], callback=self.parse_detail)
+        request.meta['item'] = item
+        yield request
 
         articles = hxs.xpath('//div[@class="category"]')
         for myart in articles[1:]:
@@ -85,33 +89,38 @@ class TestSpider(CrawlSpider):
             else:
                 item['description'] = description.xpath('text()').extract_first()
 
-            imageUrl = myart.xpath("""
-                div[@class="article-image"]/a[1]/img[1]/@src
-                """)
-            if not imageUrl:
-                print('Phnompenhpost => [' + now + '] No imageUrl')
-            else:
-                item['imageUrl'] = imageUrl.extract_first()
-
-            yield item
-
-        def parse_detail(self, response):
-            item = response.meta['item']
-            hxs = scrapy.Selector(response)
-            now = time.strftime('%Y-%m-%d %H:%M:%S')
-
-            item_page = hxs.css('div.item-page')
-            description = item_page.xpath('p[1]/text()')
-            if not description:
-                print('Phnompenhpost => [' + now + '] No description')
-            else:
-                item['description'] = item_page.xpath('p[1]/strong/text()').extract_first() + ' ' + description.extract_first()
-
-                imageUrl = item_page.xpath('p[last()]/img/@src')
-                if not imageUrl:
-                    print('Phnompenhpost => [' + now + '] No imageUrl')
-                else:
-                    item['imageUrl'] = imageUrl.extract_first()
 
 
-                    yield item
+            request = scrapy.Request(item['url'], callback=self.parse_detail)
+            request.meta['item'] = item
+            yield request
+
+    def parse_detail(self, response):
+        item = response.meta['item']
+        hxs = scrapy.Selector(response)
+        now = time.strftime('%Y-%m-%d %H:%M:%S')
+
+        print item['url']
+
+        imageUrl = hxs.xpath("""
+            //img[@itemprop="contentURL"][1]/@src
+            """)
+        if not imageUrl:
+            print('Phnompenhpost => [' + now + '] No imageUrl')
+        else:
+            item['imageUrl'] = imageUrl.extract_first()
+
+        root = lxml.html.fromstring(response.body)
+        lxml.etree.strip_elements(root, lxml.etree.Comment, "script", "head")
+        htmlcontent = ''
+
+        for p in root.xpath('//div[@id="ArticleBody"][1]'):
+            htmlcontent = lxml.html.tostring(p, pretty_print=True, encoding=unicode)
+
+        item['htmlcontent'] = htmlcontent
+
+        yield item
+
+
+
+

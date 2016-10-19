@@ -1,11 +1,11 @@
 from scrapy.http import HtmlResponse
 from scrapy.utils.python import to_bytes
 from selenium import webdriver
-from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
-from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
-from pyvirtualdisplay import Display
 from scrapy import signals
-from xvfbwrapper import Xvfb
+# from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
+# from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
+from pyvirtualdisplay import Display
+# from xvfbwrapper import Xvfb
 
 class SeleniumMiddleware(object):
 
@@ -34,6 +34,8 @@ class SeleniumMiddleware(object):
         # self.driver = webdriver.Firefox()
         self.driver = webdriver.PhantomJS()
         self.driver.set_window_size(1120, 550)
+        # self.driver = webdriver.Chrome()
+
 
     def spider_closed(self, spider):
         self.driver.close()

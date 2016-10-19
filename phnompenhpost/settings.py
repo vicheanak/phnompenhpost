@@ -18,5 +18,5 @@ DOWNLOADER_MIDDLEWARES = {
 DB_HOST = 'localhost'
 DB_PORT = 3306
 DB_USER = 'root'
-DB_PASSWD = 'tU/x@168rY'
+DB_PASSWD = 'helloworld'
 DB_DB = 'khmergoo_sequelize'
