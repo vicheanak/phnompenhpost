@@ -2,10 +2,6 @@
 *
 
 # But not these files...
-!.gitignore
-!spiders/text.py
-!pipelines.py
-!items.py
 # etc...
 
 # ...even if they are in subdirectories

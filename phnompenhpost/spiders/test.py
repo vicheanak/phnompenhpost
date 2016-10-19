@@ -8,6 +8,7 @@ import urllib
 import urllib2
 from scrapy.selector import HtmlXPathSelector
 from scrapy.http import HtmlResponse
+from lxml.html import builder as E
 # encoding=utf8
 import sys
 import lxml.etree
@@ -105,10 +106,12 @@ class TestSpider(CrawlSpider):
         imageUrl = hxs.xpath("""
             //img[@itemprop="contentURL"][1]/@src
             """)
+        imageEle = ''
         if not imageUrl:
             print('Phnompenhpost => [' + now + '] No imageUrl')
         else:
-            item['imageUrl'] = imageUrl.extract_first()
+            imageEle = E.IMG(src=imageUrl.extract_first())
+            imageEle = lxml.html.tostring(imageEle, encoding=unicode)
 
         root = lxml.html.fromstring(response.body)
         lxml.etree.strip_elements(root, lxml.etree.Comment, "script", "head")
@@ -117,7 +120,7 @@ class TestSpider(CrawlSpider):
         for p in root.xpath('//div[@id="ArticleBody"][1]'):
             htmlcontent = lxml.html.tostring(p, pretty_print=True, encoding=unicode)
 
-        item['htmlcontent'] = htmlcontent
+        item['htmlcontent'] = imageEle + htmlcontent
 
         yield item
 
